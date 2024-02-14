@@ -19,8 +19,6 @@ function addUserInput() {
     actionValues['overEating'] = overeating;
     actionValues['overEatingPoints'] = overeatingPoints;
 }
-addUserInput();
-
 
 // function to calculate total points
 let totalPoints = 0;
@@ -30,7 +28,23 @@ function calculateTotalPoints() {
             totalPoints += parseInt(actionValues[key]);
         }
     }
-    return totalPoints;
+
+    // Determine reward based on total points
+    console.log("Total Points:", totalPoints);
+    if (totalPoints >= 10) {
+        console.log("Congratulations! You can get a pizza reward.");
+    } else if (totalPoints >= 5) {
+        console.log("Congratulations! You can get a kebab reward.");
+    } else {
+        console.log("Keep accumulating points for a tasty reward!");
+    }
 }
 
+// event listener functions
+function updateUserInputAndCalculateTotalPoints() {
+    addUserInput();
+    calculateTotalPoints();
+}
 
+// event listeners
+document.getElementById("calculateButton").addEventListener("click", updateUserInputAndCalculateTotalPoints);
