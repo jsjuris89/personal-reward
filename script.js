@@ -1,31 +1,38 @@
-let actionValues = {
-    eatInMorning: "",
-    eatInMorningPoints: "",
-    overEating: "",
-    overEatingPoints: ""
-}
+let data = {};
 
 function addUserInput() {
+    // get values from HTML
     let hasEated = document.getElementById("eatInMorning").checked;
-    let hasEatedPoints = document.getElementById("eatInMorningPoints").value
+    let hasEatedPoints = document.getElementById("eatInMorningPoints").value;
 
     let overeating = document.getElementById("noOverEating").checked;
     let overeatingPoints = document.getElementById("noOverEatingPoints").value;
 
-    
-    actionValues['eatInMorning'] = hasEated;
-    actionValues['eatInMorningPoints'] = hasEatedPoints;
+    // Get current date in "YYYY-MM-DD" format
+    let currentDate = new Date().toISOString().slice(0, 10);
 
-    actionValues['overEating'] = overeating;
-    actionValues['overEatingPoints'] = overeatingPoints;
-}
+    data[currentDate] = {
+        eatInMorning: hasEated,
+        eatInMorningPoints: hasEatedPoints,
+        overEating: overeating,
+        overEatingPoints: overeatingPoints
+    }
+    saveToLocalhost()
+};
 
 // function to calculate total points
-let totalPoints = 0;
 function calculateTotalPoints() {
-    for (let key in actionValues) {
-        if (key.endsWith('Points')) {
-            totalPoints += parseInt(actionValues[key]);
+    let totalPoints = 0;
+    // Iterate through each date key in the data object
+    for (let dateKey in data) {
+        let dateData = data[dateKey];
+        // Iterate through key '2024-02-14' through all keys like eatInMorning etc
+        for (let key in dateData) {
+            // Check if the property key ends with 'Points'
+            if (key.endsWith('Points')) {
+                // Add points to totalPoints
+                totalPoints += parseInt(dateData[key]);
+            }
         }
     }
 
@@ -40,6 +47,18 @@ function calculateTotalPoints() {
     }
 }
 
+// get data from specific date
+function getDataForDate(dateInISO) {
+    let dataFromSpecificDate = localStorage.getItem('data');
+    let data = dataFromSpecificDate ? JSON.parse(dataFromSpecificDate) : {};
+    
+    // Retrieve data for the specified date
+    return data[dateInISO] || {};
+}
+
+function saveToLocalhost() {
+    localStorage.setItem('data', JSON.stringify(data));
+}
 // event listener functions
 function updateUserInputAndCalculateTotalPoints() {
     addUserInput();
