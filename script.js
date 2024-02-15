@@ -60,10 +60,10 @@ function saveToLocalhost() {
     localStorage.setItem('data', JSON.stringify(data));
 }
 // event listener functions
-function updateUserInputAndCalculateTotalPoints() {
+function submitData() {
     addUserInput();
     calculateTotalPoints();
 }
 
 // event listeners
-document.getElementById("calculateButton").addEventListener("click", updateUserInputAndCalculateTotalPoints);
+document.getElementById("calculateButton").addEventListener("click", submitData);

@@ -9,28 +9,41 @@
 </head>
 
 <body>
-    <h1>Eating Section</h1>
-    <h2>Eat in morning</h2>
-    <label for="eatInMorning">Eat in morning</label>
-    <input type="checkbox" id="eatInMorning">
+    <div class="main-container">
+        <h1>Eating Section</h1>
+        <div class="container">
+            <label for="eatInMorning">
+                <input type="checkbox" id="eatInMorning">
+            </label>
+            <p>Eat in morning before 12:00am</p>
+            <div class="points-container">
+                <p>Points</p>
+                <label for="eatInMorningPoints">
+                    <input type="number" id="eatInMorningPoints">
+                </label>
+            </div>
+        </div>
+
+        <div class="container">
+            <label for="noOverEating">
+                <input type="checkbox" id="noOverEating">
+            </label>
+            <p>No overeating</p>
+            <div class="points-container">
+                <p>Points</p>
+                <label for="noOverEatingPoints">
+                    <input type="number" id="noOverEatingPoints">
+                </label>
+            </div>
+        </div>
+        
+        <button id="calculateButton" class="button">Calculate Total Points</button>
+    </div>
     <br>
-    <label for="eatInMorningPoints">Task points</label>
-    <input type="number" id="eatInMorningPoints">
-
-    <h2>No overeating</h2>
-    <label for="noOverEating">No overeating</label>
-    <input type="checkbox" id="noOverEating">
     <br>
-    <label for="noOverEatingPoints">Task points</label>
-    <input type="number" id="noOverEatingPoints">
-
-     <!-- Button to update actionValues object and calculateTotalPoints -->
-     <br>
-     <br>
-     <br>
-     <button id="calculateButton">Calculate Total Points</button>
-
-     <a href="history.html">History</a>
+    <br>
+    <br>
+    <a href="history.html">History</a>
 
     <script src="script.js"></script>
 </body>
