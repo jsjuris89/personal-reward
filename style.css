@@ -1,3 +1,30 @@
+/* Navigation */
+nav {
+    background-color: #333;
+    margin-bottom: 1.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: inline-block;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+nav a:hover {
+    background-color: #555;
+    font-weight: 600;
+}
+
+
+
 .main-container {
     display: inline-block;  /* or inline-flex this make it have size as its children .container */
     border: 1px solid #e0e0e0;
