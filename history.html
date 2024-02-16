@@ -1,15 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>History</title>
 </head>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .date-section {
+        margin-bottom: 20px;
+    }
+
+    .date-header {
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+</style>
+</head>
+
 <body>
-    <h1>History</h1>
+
+    <div class="date-section">
+        <div class="date-header">2024-02-15</div>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>Done?</th>
+                <th>Points Given</th>
+            </tr>
+            <tr>
+                <td>Eat breakfast</td>
+                <td>No</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>No extra food</td>
+                <td>No</td>
+                <td>20</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="date-section">
+        <div class="date-header" data-date="2024-02-16">2024-02-16</div>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>Done?</th>
+                <th>Points Given</th>
+            </tr>
+            <tr>
+                <!-- JS insert values -->
+                <td>Eat breakfast</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>No extra food</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Repeat the above date sections for additional dates -->
+
 
     <a href="index.html">Homepage</a>
 
     <script src="history.js"></script>
 </body>
+
 </html>

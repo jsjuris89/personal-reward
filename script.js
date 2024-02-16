@@ -20,23 +20,21 @@ function addUserInput() {
     saveToLocalhost()
 };
 
-// function to calculate total points
 function calculateTotalPoints() {
+    addUserInput();
     let totalPoints = 0;
+
     // Iterate through each date key in the data object
     for (let dateKey in data) {
         let dateData = data[dateKey];
         // Iterate through key '2024-02-14' through all keys like eatInMorning etc
         for (let key in dateData) {
-            // Check if the property key ends with 'Points'
             if (key.endsWith('Points')) {
-                // Add points to totalPoints
                 totalPoints += parseInt(dateData[key]);
             }
         }
     }
 
-    // Determine reward based on total points
     console.log("Total Points:", totalPoints);
     if (totalPoints >= 10) {
         console.log("Congratulations! You can get a pizza reward.");
@@ -59,6 +57,7 @@ function getDataForDate(dateInISO) {
 function saveToLocalhost() {
     localStorage.setItem('data', JSON.stringify(data));
 }
+
 // event listener functions
 function submitData() {
     addUserInput();
