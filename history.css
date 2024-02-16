@@ -1,4 +1,3 @@
-
 /* Navigation */
 nav {
     background-color: #333;
@@ -40,7 +39,7 @@ td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #ececec;
 }
 
 .date-section {
@@ -49,7 +48,20 @@ th {
 
 .date-header {
     font-weight: bold;
-    font-size: 24px;
+    font-size: 1.6rem;
     margin-bottom: 10px;
     text-align: center;
+}
+
+/* Style table sections */
+.section-food th {
+    text-align: center;
+    font-size: 1.2rem;
+    background-color: #d1f4ca;
+}
+
+.section-study th {
+    text-align: center;
+    font-size: 1.2rem;
+    background-color: rgb(207, 207, 242);
 }
