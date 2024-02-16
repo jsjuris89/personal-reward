@@ -1,24 +1,35 @@
 let data = {};
 
 function addUserInput() {
-    // get values from HTML
-    let hasEated = document.getElementById("eatInMorning").checked;
-    let hasEatedPoints = document.getElementById("eatInMorningPoints").value;
+    const currentDate = new Date().toISOString().slice(0, 10);
+    // Code for eat in morning stuff
+    const eatMorningStatus = document.getElementById("eatInMorning").checked;
 
-    let overeating = document.getElementById("noOverEating").checked;
-    let overeatingPoints = document.getElementById("noOverEatingPoints").value;
+    // Traversing DOM to get points value
+    const morningParentOfCheckbox = document.getElementById("eatInMorning").parentElement
+    const morningPointsContainer = morningParentOfCheckbox.nextElementSibling.nextElementSibling;
+    const morningActualPointsElement = morningPointsContainer.querySelector('.points')
+    const morningEatInMorningPoints = morningActualPointsElement.textContent;
 
-    // Get current date in "YYYY-MM-DD" format
-    let currentDate = new Date().toISOString().slice(0, 10);
+
+    // Code for no overeating
+    const overeatingStatus = document.getElementById("noOverEating").checked;
+
+    // Traversing DOM to get points value 
+    const overeatingparentOfCheckbox = document.getElementById("noOverEating").parentElement
+    const overeatingpointsContainer = overeatingparentOfCheckbox.nextElementSibling.nextElementSibling;
+    const overeatingactualPointsElement = overeatingpointsContainer.querySelector('.points')
+    const overeatingPoints = overeatingactualPointsElement.textContent;
+
 
     data[currentDate] = {
-        eatInMorning: hasEated,
-        eatInMorningPoints: hasEatedPoints,
-        overEating: overeating,
+        eatInMorning: eatMorningStatus,
+        eatInMorningPoints: morningEatInMorningPoints,
+        overEating: overeatingStatus,
         overEatingPoints: overeatingPoints
     }
     saveToLocalhost()
-};
+}
 
 function calculateTotalPoints() {
     addUserInput();
@@ -49,7 +60,7 @@ function calculateTotalPoints() {
 function getDataForDate(dateInISO) {
     let dataFromSpecificDate = localStorage.getItem('data');
     let data = dataFromSpecificDate ? JSON.parse(dataFromSpecificDate) : {};
-    
+
     // Retrieve data for the specified date
     return data[dateInISO] || {};
 }
@@ -59,10 +70,26 @@ function saveToLocalhost() {
 }
 
 // event listener functions
+function checkboxPoints(event) {
+    if (event.target.matches('input[type="checkbox"]')) {
+        const checkbox = event.target;
+        const pointsContainer = checkbox.closest('.container').querySelector('.points');
+
+        // Set points based on the checkbox state
+        if (checkbox.id === 'eatInMorning') {
+            pointsContainer.textContent = checkbox.checked ? '3' : '0';
+        } else if (checkbox.id === 'noOverEating') {
+            pointsContainer.textContent = checkbox.checked ? '2' : '0';
+        }
+    }
+}
+
 function submitData() {
     addUserInput();
     calculateTotalPoints();
 }
 
 // event listeners
+document.querySelector('.main-container').addEventListener('change', checkboxPoints)
 document.getElementById("calculateButton").addEventListener("click", submitData);
+
