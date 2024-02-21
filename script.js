@@ -94,8 +94,6 @@ document.querySelector('.main-container').addEventListener('change', checkboxPoi
 document.getElementById("calculateButton").addEventListener("click", submitData);
 
 
-
-
 const openModal = document.querySelector('.show-modal');
 const closeModal = document.querySelector('.close-modal')
 const modal = document.querySelector('.modal')
@@ -108,5 +106,43 @@ closeModal.addEventListener('click', () => {
 })
 
 
+function modalSubmitForm(event) {
+    console.log('onsubmit executed')
+    // event.preventDefault();
+    
+    const actionName = document.getElementById('modal-insert-action-name').value 
+    const actionPoints = document.getElementById('modal-action-points').value;
+    // console.log(actionName)
+    // console.log(actionPoints)
 
+    createDom(actionName, actionPoints)
+}
+
+function createDom(action, points) {
+// Get the main container element
+const mainContainer = document.querySelector('.main-container');
+
+// Get the button element
+const calculateButton = document.getElementById('calculateButton');
+
+// Create a new container element
+const newContainer = document.createElement('div');
+newContainer.classList.add('container');
+
+// Create the inner content for the new container
+newContainer.innerHTML = `
+    <label for="newCheckbox">
+        <input type="checkbox" id="newCheckbox">
+    </label>
+    <p>${action}</p>
+    <div class="points-container">
+        <p>Points</p>
+        <span class="points">${points}</span>
+    </div>
+`;
+
+// Insert the new container element before the calculateButton
+mainContainer.insertBefore(newContainer, calculateButton);
+
+}
 

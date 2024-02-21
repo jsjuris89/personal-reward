@@ -42,6 +42,7 @@
                 <p>Points</p>
                 <span class="points">0</span>
             </div>
+            <button class="delete-button">Delete</button>
         </div>
 
 
@@ -54,15 +55,18 @@
     <br>
 
     <dialog  class="modal">
-        <div class="modal-container">
-            <label for="modal-insert-action-name">
-                <input type="text" id="modal-insert-action-name" placeholder="Name of action...">
-            </label>
-            <label for="modal-action-points">
-                <input type="number" name="" id="modal-action-points" placeholder="Points for that action...">
-            </label>
-        </div>
-        <button class="close-modal">Close</button>
+        <form class="modal-container" method="dialog" onsubmit="modalSubmitForm(event)">
+            <div class="modal-flexbox">
+                <label for="modal-insert-action-name">
+                    <input type="text" id="modal-insert-action-name" placeholder="Name of action...">
+                </label>
+                <label for="modal-action-points">
+                    <input type="number" name="" id="modal-action-points" placeholder="Points for that action...">
+                </label>
+            </div>
+            <button type="submit" class="submit-modal">Submit</button>
+            <button class="close-modal">Close</button>
+        </form>
     </dialog>
 
     <button class="show-modal">Show Modal</button>

@@ -31,7 +31,8 @@ nav a:hover {
 
 
 .main-container {
-    display: inline-block;  /* or inline-flex this make it have size as its children .container */
+    display: inline-block;
+    /* or inline-flex this make it have size as its children .container */
     border: 1px solid #e0e0e0;
     /* for card effect */
     border-radius: 8px;
@@ -62,6 +63,7 @@ label {
     width: 30px;
     height: 30px;
 }
+
 input[type="checkbox"] {
     width: 100%;
     height: 100%;
@@ -88,7 +90,8 @@ input[type="checkbox"] {
 
 .button {
     display: block;
-    width: 630px; /* fix this hardcoded value later on*/
+    width: 630px;
+    /* fix this hardcoded value later on*/
     padding: 10px 20px;
     margin-top: 15px;
     background-color: #4CAF50;
@@ -112,25 +115,28 @@ Main issue is that text <p> (after <label>) will overflow and stuff if text is t
 
 /* Modal */
 .show-modal {
-  background-color: purple;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
+    background-color: purple;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }
+
 .modal {
     padding: 2rem;
     background: white;
     border: 0;
     box-shadow: 0 0 1em rgb(0 0 0 / 0.5);
 }
+
 .modal::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#modal-insert-action-name, #modal-action-points {
+#modal-insert-action-name,
+#modal-action-points {
     padding: 12px;
 }
 
@@ -138,12 +144,53 @@ Main issue is that text <p> (after <label>) will overflow and stuff if text is t
     background-color: red;
     font-weight: 700;
     color: white;
-    border: none;
     padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
 }
+
 .modal .close-modal:hover {
     background-color: rgb(222, 6, 6);
+}
+
+.modal .submit-modal {
+    background-color: #4CAF50;
+    font-weight: 700;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* Container styles */
+.container {
+    display: flex; /* Use flexbox */
+    justify-content: space-between; /* Distribute space evenly between children */
+}
+
+/* Child elements styles */
+.container > * {
+    flex: 1; /* Each child takes equal width */
+}
+
+/* Delete button styles */
+.delete-button {
+    flex: none; /* Don't allow the delete button to grow */
+    width: auto; /* Auto width */
+}
+
+/* Style for the delete button */
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
 }
