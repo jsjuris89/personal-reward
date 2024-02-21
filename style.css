@@ -167,22 +167,32 @@ Main issue is that text <p> (after <label>) will overflow and stuff if text is t
 }
 
 
-/* Container styles */
+/* Container styles for checkbox, action, points, delete button */
 .container {
-    display: flex; /* Use flexbox */
-    justify-content: space-between; /* Distribute space evenly between children */
+    display: flex; 
+    justify-content: space-between; 
 }
 
-/* Child elements styles */
+/* All child elements styles */
 .container > * {
     flex: 1; /* Each child takes equal width */
 }
-
-/* Delete button styles */
-.delete-button {
-    flex: none; /* Don't allow the delete button to grow */
-    width: auto; /* Auto width */
+/* Label width */
+.container label {
+    flex: 0 0 10%;
+    margin-right: 15px;
 }
+/* action width */
+.container p {
+    flex: 0 0 60%;
+}
+
+/* Delete button width */
+.delete-button {
+    flex: 0 0 10%;
+}
+
+
 
 /* Style for the delete button */
 .delete-button {
@@ -194,3 +204,4 @@ Main issue is that text <p> (after <label>) will overflow and stuff if text is t
     cursor: pointer;
     margin-top: 10px;
 }
+
