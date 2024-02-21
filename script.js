@@ -93,3 +93,20 @@ function submitData() {
 document.querySelector('.main-container').addEventListener('change', checkboxPoints)
 document.getElementById("calculateButton").addEventListener("click", submitData);
 
+
+
+
+const openModal = document.querySelector('.show-modal');
+const closeModal = document.querySelector('.close-modal')
+const modal = document.querySelector('.modal')
+
+openModal.addEventListener('click', () => {
+    modal.showModal();
+})
+closeModal.addEventListener('click', () => {
+    modal.close()
+})
+
+
+
+

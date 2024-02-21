@@ -1,3 +1,7 @@
+body {
+    height: 100%;
+}
+
 /* Navigation */
 nav {
     background-color: #333;
@@ -5,6 +9,7 @@ nav {
 }
 
 nav ul {
+    display: flex;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -104,3 +109,41 @@ input[type="checkbox"] {
 /* TODO
 Main issue is that text <p> (after <label>) will overflow and stuff if text is too long
 */
+
+/* Modal */
+.show-modal {
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal {
+    padding: 2rem;
+    background: white;
+    border: 0;
+    box-shadow: 0 0 1em rgb(0 0 0 / 0.5);
+}
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal-insert-action-name, #modal-action-points {
+    padding: 12px;
+}
+
+.modal .close-modal {
+    background-color: red;
+    font-weight: 700;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.modal .close-modal:hover {
+    background-color: rgb(222, 6, 6);
+}
