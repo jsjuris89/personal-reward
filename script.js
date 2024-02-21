@@ -69,6 +69,8 @@ function saveToLocalhost() {
     localStorage.setItem('data', JSON.stringify(data));
 }
 
+
+
 // event listener functions
 function checkboxPoints(event) {
     if (event.target.matches('input[type="checkbox"]')) {
@@ -84,6 +86,15 @@ function checkboxPoints(event) {
     }
 }
 
+function deleteDom(e) {
+
+    if (e.target.classList.contains('delete-button')) {
+        const children = e.target.parentElement;
+        const parent = children.parentElement
+        parent.removeChild(children)
+    }
+}
+
 function submitData() {
     addUserInput();
     calculateTotalPoints();
@@ -92,6 +103,8 @@ function submitData() {
 // event listeners
 document.querySelector('.main-container').addEventListener('change', checkboxPoints)
 document.getElementById("calculateButton").addEventListener("click", submitData);
+const delBtnBubblingParent = document.querySelector('.main-container')
+delBtnBubblingParent.addEventListener('click', deleteDom)
 
 
 const openModal = document.querySelector('.show-modal');
@@ -108,12 +121,9 @@ closeModal.addEventListener('click', () => {
 
 function modalSubmitForm(event) {
     console.log('onsubmit executed')
-    // event.preventDefault();
     
     const actionName = document.getElementById('modal-insert-action-name').value 
     const actionPoints = document.getElementById('modal-action-points').value;
-    // console.log(actionName)
-    // console.log(actionPoints)
 
     createDom(actionName, actionPoints)
 }
@@ -139,10 +149,10 @@ newContainer.innerHTML = `
         <p>Points</p>
         <span class="points">${points}</span>
     </div>
+    <button class="delete-button">Delete</button>
 `;
 
 // Insert the new container element before the calculateButton
 mainContainer.insertBefore(newContainer, calculateButton);
-
 }
 
