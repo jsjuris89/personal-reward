@@ -1,5 +1,54 @@
 let data = {};
 
+// User setting up values 
+const eatInMorning = 4;
+const noExtraFood = 15;
+
+const actionPoints = {
+    "eatInMorningPoints": eatInMorning,
+    "overEatingPoints": noExtraFood
+}
+
+
+function setUserPointValues(date) {
+    console.log('setUserPointsValues executed...')
+    // Check if the data object has a property corresponding to the provided date
+    if (data.hasOwnProperty(date)) {
+        // Get the object corresponding to the provided date
+        const dateObject = data[date];
+
+        // Iterate over the keys in actionPoints
+        for (let key in actionPoints) {
+            // Check if the key exists in the dateObject
+            if (dateObject.hasOwnProperty(key)) {
+                // Update the value in dateObject with the value from actionPoints
+                dateObject[key] = actionPoints[key];
+            }
+        }
+    }
+    console.log('at the end of setUserPointsValues data object is: ', data['2024-02-22'])
+}
+// function to check if checkbox is checked and then give appropiate value of points earned
+function updateDomPointsValue() {
+    setUserPointValues('2024-02-22')
+
+
+    // Select all elements with class 'points'
+    const pointsElements = document.querySelectorAll('.points');
+    pointsElements.forEach(element => {
+        // Check if the element has a specific second class
+        if (element.classList.contains('morning')) {
+            console.log('first if textContent -->', element.textContent)
+            data['2024-02-21'].eatInMorningPoints = actionPoints.eatInMorningPoints
+        } else if (element.classList.contains('noExtra')) {
+            data['2024-02-21'].overEatingPoints = actionPoints.overEatingPoints
+        }
+    });
+
+
+}
+
+
 function addUserInput() {
     const currentDate = new Date().toISOString().slice(0, 10);
     // Code for eat in morning stuff
@@ -73,21 +122,21 @@ function saveToLocalhost() {
 
 // event listener functions
 function checkboxPoints(event) {
+    console.log('checkboxPoints event was launched')
     if (event.target.matches('input[type="checkbox"]')) {
         const checkbox = event.target;
         const pointsContainer = checkbox.closest('.container').querySelector('.points');
 
         // Set points based on the checkbox state
         if (checkbox.id === 'eatInMorning') {
-            pointsContainer.textContent = checkbox.checked ? '3' : '0';
+            pointsContainer.textContent = checkbox.checked ? actionPoints.eatInMorningPoints : '0';
         } else if (checkbox.id === 'noOverEating') {
-            pointsContainer.textContent = checkbox.checked ? '2' : '0';
+            pointsContainer.textContent = checkbox.checked ? actionPoints.overEatingPoints : '0';
         }
     }
 }
 
 function deleteDom(e) {
-
     if (e.target.classList.contains('delete-button')) {
         const children = e.target.parentElement;
         const parent = children.parentElement
@@ -99,6 +148,7 @@ function submitData() {
     addUserInput();
     calculateTotalPoints();
 }
+
 
 // event listeners
 document.querySelector('.main-container').addEventListener('change', checkboxPoints)
@@ -120,39 +170,38 @@ closeModal.addEventListener('click', () => {
 
 
 function modalSubmitForm(event) {
-    console.log('onsubmit executed')
-    
-    const actionName = document.getElementById('modal-insert-action-name').value 
+
+    const actionName = document.getElementById('modal-insert-action-name').value
     const actionPoints = document.getElementById('modal-action-points').value;
 
     createDom(actionName, actionPoints)
 }
 
 function createDom(action, points) {
-// Get the main container element
-const mainContainer = document.querySelector('.main-container');
+    // Get the main container element
+    const mainContainer = document.querySelector('.main-container');
 
-// Get the button element
-const calculateButton = document.getElementById('calculateButton');
+    // Get the button element
+    const calculateButton = document.getElementById('calculateButton');
 
-// Create a new container element
-const newContainer = document.createElement('div');
-newContainer.classList.add('container');
+    // Create a new container element
+    const newContainer = document.createElement('div');
+    newContainer.classList.add('container');
 
-// Create the inner content for the new container
-newContainer.innerHTML = `
+    // Create the inner content for the new container
+    newContainer.innerHTML = `
     <label for="newCheckbox">
         <input type="checkbox" id="newCheckbox">
     </label>
     <p>${action}</p>
     <div class="points-container">
         <p>Points</p>
-        <span class="points">${points}</span>
+        <span class="points">0</span>
     </div>
     <button class="delete-button">Delete</button>
 `;
 
-// Insert the new container element before the calculateButton
-mainContainer.insertBefore(newContainer, calculateButton);
+    // Insert the new container element before the calculateButton
+    mainContainer.insertBefore(newContainer, calculateButton);
 }
 
