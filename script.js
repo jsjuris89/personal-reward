@@ -10,8 +10,13 @@ const actionPoints = {
 }
 // - [x] how can we add new actions from the user input?
 function configureActionPointsObj(actionName, actionPointsValue) {
+    
+    // To work together with checkboxPoints() I need to make data the same
+    // Sanitize user input and generate a valid id
+    const formattedActionKey = actionName.trim().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-').toLowerCase();
+    
     // Add or update the key-value pair in the actionPoints object
-    actionPoints[actionName] = parseFloat(actionPointsValue);
+    actionPoints[formattedActionKey] = parseFloat(actionPointsValue);
 
     // Additional logic using the updated actionPoints object
     console.log('Updated Action Points:', actionPoints);
@@ -20,29 +25,28 @@ function createDom(action) {
     const mainContainer = document.querySelector('.main-container');
     const calculateButton = document.getElementById('calculateButton');
 
+    // Sanitize user input and generate a valid id
+    const actionID = action.trim().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-').toLowerCase();
+    // console.log('acitonID -->', actionID)
+
     // Create a new container element
     const newContainer = document.createElement('div');
     newContainer.classList.add('container');
 
     newContainer.innerHTML = `
-    <label for="newCheckbox">
-        <input type="checkbox" id="newCheckbox">
+    <label for=${actionID}>
+        <input type="checkbox" id=${actionID}>
     </label>
     <p>${action}</p>
     <div class="points-container">
         <p>Points</p>
-        <span class="points">0</span>
+        <span class="points ${actionID}">0</span>
     </div>
     <button class="delete-button">Delete</button>
 `;
 
     mainContainer.insertBefore(newContainer, calculateButton);
 }
-
-
-
-
-
 
 // User modify values for actions and points ?
 // - [ ] create another modal
@@ -67,26 +71,6 @@ function newValuesForPoints(date) {
     }
     console.log('at the end of setUserPointsValues data object is: ', data['2024-02-22'])
 }
-
-// this is basically taking things from UI and changing data inside our data object (should be reversed data comes from database and are being displayed in the UI)
-// - [ ] remove later from code
-// function updateDomPointsValue() {
-//     // newValuesForPoints('2024-02-22')
-
-
-//     // Select all elements with class 'points'
-//     const pointsElements = document.querySelectorAll('.points');
-//     pointsElements.forEach(element => {
-//         // Check if the element has a specific second class
-//         if (element.classList.contains('morning')) {
-//             console.log('first if textContent -->', element.textContent)
-//             data['2024-02-22'].eatInMorningPoints = actionPoints.eatInMorningPoints
-//         } else if (element.classList.contains('noExtra')) {
-//             data['2024-02-22'].overEatingPoints = actionPoints.overEatingPoints
-//         }
-//     });
-// }
-
 
 function addUserInput() {
     const currentDate = new Date().toISOString().slice(0, 10);
@@ -119,6 +103,7 @@ function addUserInput() {
     saveToLocalhost()
 }
 
+// - [ ] fix this logic
 function calculateTotalPoints() {
     addUserInput();
     let totalPoints = 0;
@@ -171,6 +156,17 @@ function checkboxPoints(event) {
             pointsContainer.textContent = checkbox.checked ? actionPoints.eatInMorningPoints : '0';
         } else if (checkbox.id === 'noOverEating') {
             pointsContainer.textContent = checkbox.checked ? actionPoints.overEatingPoints : '0';
+        }
+
+        // Loop through the keys of the actionPoints object
+        for (const key in actionPoints) {
+            if (actionPoints.hasOwnProperty(key)) {
+                // Check if the checkbox id matches the current key
+                if (checkbox.id === key) {
+                    console.log(`Checkbox id "${checkbox.id}" matches key "${key}"`);
+                    pointsContainer.textContent = checkbox.checked ? actionPoints[key] : '0';
+                }
+            }
         }
     }
 }
