@@ -1,6 +1,6 @@
 let data = {};
 
-// User setting up values 
+// User 1st time setting values for actions and their point values
 const eatInMorning = 4;
 const noExtraFood = 15;
 
@@ -8,9 +8,48 @@ const actionPoints = {
     "eatInMorningPoints": eatInMorning,
     "overEatingPoints": noExtraFood
 }
+// - [x] how can we add new actions from the user input?
+function configureActionPointsObj(actionName, actionPointsValue) {
+    // Add or update the key-value pair in the actionPoints object
+    actionPoints[actionName] = parseFloat(actionPointsValue);
+
+    // Additional logic using the updated actionPoints object
+    console.log('Updated Action Points:', actionPoints);
+}
+function createDom(action) {
+    const mainContainer = document.querySelector('.main-container');
+    const calculateButton = document.getElementById('calculateButton');
+
+    // Create a new container element
+    const newContainer = document.createElement('div');
+    newContainer.classList.add('container');
+
+    newContainer.innerHTML = `
+    <label for="newCheckbox">
+        <input type="checkbox" id="newCheckbox">
+    </label>
+    <p>${action}</p>
+    <div class="points-container">
+        <p>Points</p>
+        <span class="points">0</span>
+    </div>
+    <button class="delete-button">Delete</button>
+`;
+
+    mainContainer.insertBefore(newContainer, calculateButton);
+}
 
 
-function setUserPointValues(date) {
+
+
+
+
+// User modify values for actions and points ?
+// - [ ] create another modal
+
+
+// this modifies data object for specific data, but we shouldnt modify past data (that is cheating)
+function newValuesForPoints(date) {
     console.log('setUserPointsValues executed...')
     // Check if the data object has a property corresponding to the provided date
     if (data.hasOwnProperty(date)) {
@@ -28,25 +67,25 @@ function setUserPointValues(date) {
     }
     console.log('at the end of setUserPointsValues data object is: ', data['2024-02-22'])
 }
-// function to check if checkbox is checked and then give appropiate value of points earned
-function updateDomPointsValue() {
-    setUserPointValues('2024-02-22')
+
+// this is basically taking things from UI and changing data inside our data object (should be reversed data comes from database and are being displayed in the UI)
+// - [ ] remove later from code
+// function updateDomPointsValue() {
+//     // newValuesForPoints('2024-02-22')
 
 
-    // Select all elements with class 'points'
-    const pointsElements = document.querySelectorAll('.points');
-    pointsElements.forEach(element => {
-        // Check if the element has a specific second class
-        if (element.classList.contains('morning')) {
-            console.log('first if textContent -->', element.textContent)
-            data['2024-02-21'].eatInMorningPoints = actionPoints.eatInMorningPoints
-        } else if (element.classList.contains('noExtra')) {
-            data['2024-02-21'].overEatingPoints = actionPoints.overEatingPoints
-        }
-    });
-
-
-}
+//     // Select all elements with class 'points'
+//     const pointsElements = document.querySelectorAll('.points');
+//     pointsElements.forEach(element => {
+//         // Check if the element has a specific second class
+//         if (element.classList.contains('morning')) {
+//             console.log('first if textContent -->', element.textContent)
+//             data['2024-02-22'].eatInMorningPoints = actionPoints.eatInMorningPoints
+//         } else if (element.classList.contains('noExtra')) {
+//             data['2024-02-22'].overEatingPoints = actionPoints.overEatingPoints
+//         }
+//     });
+// }
 
 
 function addUserInput() {
@@ -168,40 +207,14 @@ closeModal.addEventListener('click', () => {
     modal.close()
 })
 
-
 function modalSubmitForm(event) {
-
     const actionName = document.getElementById('modal-insert-action-name').value
     const actionPoints = document.getElementById('modal-action-points').value;
 
-    createDom(actionName, actionPoints)
-}
-
-function createDom(action, points) {
-    // Get the main container element
-    const mainContainer = document.querySelector('.main-container');
-
-    // Get the button element
-    const calculateButton = document.getElementById('calculateButton');
-
-    // Create a new container element
-    const newContainer = document.createElement('div');
-    newContainer.classList.add('container');
-
-    // Create the inner content for the new container
-    newContainer.innerHTML = `
-    <label for="newCheckbox">
-        <input type="checkbox" id="newCheckbox">
-    </label>
-    <p>${action}</p>
-    <div class="points-container">
-        <p>Points</p>
-        <span class="points">0</span>
-    </div>
-    <button class="delete-button">Delete</button>
-`;
-
-    // Insert the new container element before the calculateButton
-    mainContainer.insertBefore(newContainer, calculateButton);
+    configureActionPointsObj(actionName, actionPoints)
+    // After user has configured new action and points assigned for that action
+    // That action should be displayed in the UI
+    // So user can add todays data
+    createDom(actionName)
 }
 
